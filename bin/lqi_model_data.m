@@ -34,7 +34,7 @@ quad_actuator_B = [zeros(8, 4);
                     0, 0, 4*L*cos(theta)*n_t/M_y_quad, 0;
                     0, 0, 0, 4*n_c/M_z_quad]];
 
-observer_C = [zeros(6), eye(6)];
+observer_C = [zeros(12), eye(12)];
 
 D = zeros(12, 4);
 
@@ -47,7 +47,7 @@ Q_augmented = blkdiag(Q, zeros(12));
 
 
 % Call the lqi function to compute the controller gains
-K_lqi = lqi(quad_state_A, quad_actuator_B, Q_augmented, R);
+K_lqi = lqi(quad_state_A, quad_actuator_B, Q, R);
 
 % Extract the state-feedback part
 K_feedback = K_lqi(:, 1:12);
