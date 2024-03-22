@@ -117,7 +117,7 @@ sys=ss(quad_state_A,quad_actuator_B,observer_C,D)
 step(sys)
 Q2=eye(24)
 R2=eye(4)
-K2=lqi(quad_state_A,quad_actuator_B,Q1,R2)
+K2=lqi(quad_state_A,quad_actuator_B,Q2,R2)
 %Y=feedback(sys,K,-1)
 % step(Y)
 

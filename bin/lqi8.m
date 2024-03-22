@@ -48,7 +48,7 @@ observer_C = [0 0 0 0 0 0 0 0 1 0 0 0
               0 0 0 0 0 0 0 0 0 0 0 1];
 
 
-D = zeros(12, 4);
+D = zeros(4,12);
 sus = ss(quad_state_A,quad_actuator_B,observer_C,[])
 
 aug_A = [quad_state_A zeros(12,4);-observer_C zeros(4,4)];
