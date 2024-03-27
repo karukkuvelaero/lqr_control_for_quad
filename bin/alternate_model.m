@@ -49,33 +49,33 @@ quad_actuator_B = [ 0 0 0 0 ;
                     0 0 1/M_y_quad 0 ; 
                     0 0 0 1/M_z_quad ; ];
 
-% observer_C = [1 0 0 0 0 0 0 0 0 0 0 0
-%               0 1 0 0 0 0 0 0 0 0 0 0
-%               0 0 1 0 0 0 0 0 0 0 0 0
-%               0 0 0 0 0 0 1 0 0 0 0 0
-%               0 0 0 0 0 0 0 1 0 0 0 0
-%               0 0 0 0 0 0 0 0 1 0 0 0];
+observer_C = [1 0 0 0 0 0 0 0 0 0 0 0
+              0 1 0 0 0 0 0 0 0 0 0 0
+              0 0 1 0 0 0 0 0 0 0 0 0
+              0 0 0 0 0 0 1 0 0 0 0 0
+              0 0 0 0 0 0 0 1 0 0 0 0
+              0 0 0 0 0 0 0 0 1 0 0 0];
 
-observer_C = eye(12)
+% observer_C = eye(12)
 D = zeros(12, 4);
 sus = ss(quad_state_A,quad_actuator_B,observer_C,[])
 
-% %aug_A = [quad_state_A zeros(12,6);-observer_C zeros(6,6)];
-% aug_B = [quad_actuator_B ;zeros(6,4)]+[zeros(12,4);zeros(6,4)];
-% aug_B(18,4)=1;
-% aug_B(17,3)=1;
-% aug_B(16,2)=1;
-% aug_B(15,1)=1;
-% Ca = [observer_C zeros(6,6); zeros(6,18)];
- % 
- % ssModel= ss(aug_A,aug_B,Ca,[]);
- % f1 = rank(obsv(ssModel))
- % f = rank(ctrb(ssModel))
+aug_A = [quad_state_A zeros(12,6);-observer_C zeros(6,6)];
+aug_B = [quad_actuator_B ;zeros(6,4)]+[zeros(12,4);zeros(6,4)];
+aug_B(18,4)=1;
+aug_B(17,3)=1;
+aug_B(16,2)=1;
+aug_B(15,1)=1;
+Ca = [observer_C zeros(6,6); zeros(6,18)];
+
+ ssModel= ss(aug_A,aug_B,Ca,[]);
+ f1 = rank(obsv(ssModel))
+ f = rank(ctrb(ssModel))
 Q = eye(18);
 Q1=eye(12);
 R =  eye (4) ;
 N=zeros(18,4);
-k1 = lqr (sus,Q1,R);
+ k1 = lqr (sus,Q1,R);
 %l=lqi(sus,Q,R,N)
 %k = lqr(ssModel,Q,R,N)
 
